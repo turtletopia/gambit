@@ -1,4 +1,4 @@
-# succeeds with a correct call
+# succeeds with a locally defined function
 
     Code
       test_function(x = list(1L))
@@ -38,7 +38,7 @@
       Error in `test_function()`:
       ! Assertion on 'x' failed: Must be of type 'atomic scalar', not 'NULL'.
 
----
+# succeeds with an imported function
 
     Code
       checkmate::test_string(x = "test", n.chars = list(1L))

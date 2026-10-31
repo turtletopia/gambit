@@ -1,5 +1,5 @@
 # Example call -----------------------------------------------------------------
-test_that("succeeds with a correct call", {
+test_that("succeeds with a locally defined function", {
   test_function <- function(x) {
     checkmate::assert_scalar(x)
   }
@@ -8,7 +8,9 @@ test_that("succeeds with a correct call", {
     "x",
     test_function(x = 3L)
   )
+})
 
+test_that("succeeds with an imported function", {
   needs_scalar(
     "n.chars",
     checkmate::test_string("test", n.chars = 4L),
@@ -18,67 +20,46 @@ test_that("succeeds with a correct call", {
 
 # Parameter changes ------------------------------------------------------------
 test_that("by default, tests NULL and NA", {
-  tested <- rlang::env(values = list())
   testthat::local_mocked_bindings(
-    expect_fails = function(expr, param, value) {
-      tested$values <- append(tested$values, list(value))
-    }
+    fails_for = function(expr, param, failures) { failures }
   )
 
-  test_function <- function(x) {
-    checkmate::assert_scalar(x)
-  }
-
-  needs_scalar(
+  failures <- needs_scalar(
     "x",
-    test_function(x = 3L)
+    ignored()
   )
 
-  expect_contains(tested$values, list(NULL, NA))
+  expect_contains(failures, list(NULL, NA))
 })
 
 test_that("if `null_ok` then doesn't test NULL", {
-  tested <- rlang::env(values = list())
   testthat::local_mocked_bindings(
-    expect_fails = function(expr, param, value) {
-      tested$values <- append(tested$values, list(value))
-    }
+    fails_for = function(expr, param, failures) { failures }
   )
 
-  test_function <- function(x) {
-    checkmate::assert_scalar(x, null.ok = TRUE)
-  }
-
-  needs_scalar(
+  failures <- needs_scalar(
     "x",
-    test_function(x = 3L),
+    ignored(),
     null_ok = TRUE
   )
 
-  expect_contains(tested$values, list(NA))
-  expect_disjoint(tested$values, list(NULL))
+  expect_contains(failures, list(NA))
+  expect_disjoint(failures, list(NULL))
 })
 
 test_that("if `na_ok` then doesn't test NA", {
-  tested <- rlang::env(values = list())
   testthat::local_mocked_bindings(
-    expect_fails = function(expr, param, value) {
-      tested$values <- append(tested$values, list(value))
-    }
+    fails_for = function(expr, param, failures) { failures }
   )
 
-  test_function <- function(x) {
-    checkmate::assert_scalar(x, na.ok = TRUE)
-  }
-
-  needs_scalar(
+  failures <- needs_scalar(
     "x",
-    test_function(x = 3L),
+    ignored(),
     na_ok = TRUE
   )
 
-  expect_contains(tested$values, list(NULL))
-  expect_disjoint(tested$values, list(NA))
+  expect_contains(failures, list(NULL))
+  expect_disjoint(failures, list(NA))
 })
 
 # Parameter assertions ---------------------------------------------------------

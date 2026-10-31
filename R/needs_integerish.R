@@ -3,10 +3,11 @@ needs_integerish <- function(param, expr, ..., lower = -Inf, upper = Inf, any_mi
   ellipsis::check_dots_empty()
 
   expr <- rlang::enexpr(expr)
-  expr <- rlang::call_match(
-    call = expr,
-    fn = get(rlang::call_name(expr))
-  )
+  checkmate::assert_class(expr, "call")
+  checkmate::assert_true(rlang::is_call_simple(expr))
+  fn <- rlang::eval_bare(expr[[1]])
+  checkmate::assert_choice(param, rlang::fn_fmls_names(fn))
+  expr <- rlang::call_match(call = expr, fn = fn)
 
   expect_fails(expr, param, TRUE)
   expect_fails(expr, param, "string")

@@ -1,4 +1,4 @@
-# succeedes when passed failing parameter value
+# succeeds when passed failing parameter value
 
     Code
       log(x = NULL)

@@ -24,7 +24,6 @@
 needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_chars = NULL, max_chars = NULL, null_ok = FALSE) {
   ellipsis::check_dots_empty()
 
-  checkmate::assert_string(param)
   checkmate::assert_flag(na_ok)
   checkmate::assert_count(n_chars, null.ok = TRUE)
   checkmate::assert_count(min_chars, null.ok = TRUE)
@@ -34,62 +33,59 @@ needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_ch
   )
   checkmate::assert_flag(null_ok)
 
-  expr <- rlang::enexpr(expr)
-  checkmate::assert_class(expr, "call")
-  checkmate::assert_true(rlang::is_call_simple(expr))
-  fn <- rlang::eval_bare(expr[[1]])
-  checkmate::assert_choice(param, rlang::fn_fmls_names(fn))
-  expr <- rlang::call_match(call = expr, fn = fn)
-
-  expect_fails(expr, param, TRUE)
-  expect_fails(expr, param, 156L)
-  expect_fails(expr, param, list("string"))
-  expect_fails(expr, param, c("string", "second"))
-  expect_fails(expr, param, character())
+  failures <- list(
+    TRUE,
+    156L,
+    list("string"),
+    c("string", "second"),
+    character()
+  )
 
   if (!na_ok) {
-    expect_fails(expr, param, NA_character_)
+    failures <- append(failures, list(
+      NA_character_
+    ))
   }
 
   if (!is.null(n_chars)) {
-    expect_fails(
-      expr, param,
+    failures <- append(failures, list(
       paste0(
         rep("x", times = n_chars - 1L),
         collapse = ""
-      )
-    )
-    expect_fails(
-      expr, param,
+      ),
       paste0(
         rep("x", times = n_chars + 1L),
         collapse = ""
       )
-    )
+    ))
   }
 
   if (!is.null(min_chars) && min_chars > 0L) {
-    expect_fails(expr, param, "")
-    expect_fails(
-      expr, param,
+    failures <- append(failures, list(
+      "",
       paste0(
         rep("x", times = min_chars - 1L),
         collapse = ""
       )
-    )
+    ))
   }
 
   if (!is.null(max_chars)) {
-    expect_fails(
-      expr, param,
+    failures <- append(failures, list(
       paste0(
         rep("x", times = max_chars + 1L),
         collapse = ""
       )
-    )
+    ))
   }
 
   if (!null_ok) {
-    expect_fails(expr, param, NULL)
+    failures <- append(failures, list(
+      NULL
+    ))
   }
+
+  rlang::inject(
+    fails_for(param, !!rlang::enquo(expr), failures)
+  )
 }

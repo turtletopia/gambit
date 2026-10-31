@@ -24,26 +24,28 @@
 needs_scalar <- function(param, expr, ..., na_ok = FALSE, null_ok = FALSE) {
   ellipsis::check_dots_empty()
 
-  checkmate::assert_string(param)
   checkmate::assert_flag(na_ok)
   checkmate::assert_flag(null_ok)
 
-  expr <- rlang::enexpr(expr)
-  checkmate::assert_class(expr, "call")
-  checkmate::assert_true(rlang::is_call_simple(expr))
-  fn <- rlang::eval_bare(expr[[1]])
-  checkmate::assert_choice(param, rlang::fn_fmls_names(fn))
-  expr <- rlang::call_match(call = expr, fn = fn)
-
-  expect_fails(expr, param, list(1L))
-  expect_fails(expr, param, c(TRUE, FALSE))
-  expect_fails(expr, param, character())
+  failures <- list(
+    list(1L),
+    c(TRUE, FALSE),
+    character()
+  )
 
   if (!na_ok) {
-    expect_fails(expr, param, NA)
+    failures <- append(failures, list(
+      NA
+    ))
   }
 
   if (!null_ok) {
-    expect_fails(expr, param, NULL)
+    failures <- append(failures, list(
+      NULL
+    ))
   }
+
+  rlang::inject(
+    fails_for(param, !!rlang::enquo(expr), failures)
+  )
 }

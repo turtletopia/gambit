@@ -1,8 +1,17 @@
 # Example call -----------------------------------------------------------------
 test_that("succeeds with a correct call", {
-  needs_int(
+  test_function <- function(x) {
+    checkmate::assert_scalar(x)
+  }
+
+  needs_scalar(
+    "x",
+    test_function(x = 3L)
+  )
+
+  needs_scalar(
     "n.chars",
-    checkmate::test_string("aix", n.chars = 3L),
+    checkmate::test_string("test", n.chars = 4L),
     null_ok = TRUE
   )
 })

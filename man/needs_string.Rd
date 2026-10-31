@@ -28,7 +28,7 @@ Example call to the tested function that does not fail.}
 Whether missing values are allowed or not.}
 
 \item{n_chars}{\code{integer(1) | NULL}\cr
-Exact length of the string.}
+Exact length of the string. If specified, can't specify \code{min_chars} nor \code{max_chars}.}
 
 \item{min_chars}{\code{integer(1) | NULL}\cr
 Minimum length of the string.}

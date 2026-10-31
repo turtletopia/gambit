@@ -2,37 +2,43 @@
 needs_character <- function(param, expr, ..., any_missing = FALSE, min_len = NULL, max_len = NULL, null_ok = FALSE) {
   ellipsis::check_dots_empty()
 
-  expr <- rlang::enexpr(expr)
-  checkmate::assert_class(expr, "call")
-  checkmate::assert_true(rlang::is_call_simple(expr))
-  fn <- rlang::eval_bare(expr[[1]])
-  checkmate::assert_choice(param, rlang::fn_fmls_names(fn))
-  expr <- rlang::call_match(call = expr, fn = fn)
-
-  expect_fails(expr, param, TRUE)
-  expect_fails(expr, param, 156L)
-  expect_fails(expr, param, list("string"))
+  failures <- list(
+    TRUE,
+    156L,
+    list("string")
+  )
 
   if (!any_missing) {
-    expect_fails(expr, param, c("string", NA_character_))
+    failures <- append(failures, list(
+      c("string", NA_character_)
+    ))
   }
 
   if (!null_ok) {
-    expect_fails(expr, param, NULL)
+    failures <- append(failures, list(
+      NULL
+    ))
   }
 
   if (!is.null(min_len) && min_len > 0L) {
-    expect_fails(expr, param, character())
-    expect_fails(
-      expr, param,
+    failures <- append(failures, list(
       sprintf("string%i", seq_len(min_len - 1L))
-    )
+    ))
+
+    if (min_len > 1L) {
+      failures <- append(failures, list(
+        character()
+      ))
+    }
   }
 
   if (!is.null(max_len)) {
-    expect_fails(
-      expr, param,
+    failures <- append(failures, list(
       sprintf("string%i", seq_len(max_len + 1L))
-    )
+    ))
   }
+
+  rlang::inject(
+    fails_for(param, !!rlang::enquo(expr), failures)
+  )
 }

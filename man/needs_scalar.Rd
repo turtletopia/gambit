@@ -31,3 +31,13 @@ all different manners of incorrect input.
 \details{
 Uses \code{\link[testthat:expect_snapshot]{testthat::expect_snapshot()}} under the hood.
 }
+\examples{
+test_function <- function(x) {
+  checkmate::assert_scalar(x)
+}
+
+needs_scalar(
+  "x",
+  test_function(x = 3L)
+)
+}

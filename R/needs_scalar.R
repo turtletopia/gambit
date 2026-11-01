@@ -19,6 +19,15 @@
 #'
 #' @return Nothing, called for its side effect of running expectations.
 #'
+#' @examples
+#' test_function <- function(x) {
+#'   checkmate::assert_scalar(x)
+#' }
+#'
+#' needs_scalar(
+#'   "x",
+#'   test_function(x = 3L)
+#' )
 #' @export
 needs_scalar <- function(param, expr, ..., na_ok = FALSE, null_ok = FALSE) {
   ellipsis::check_dots_empty()

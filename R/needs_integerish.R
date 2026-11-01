@@ -5,7 +5,8 @@ needs_integerish <- function(param, expr, ..., lower = -Inf, upper = Inf, any_mi
   failures <- list(
     TRUE,
     "string",
-    list(156L)
+    list(156L),
+    c(156, 156.5)
   )
 
   if (!any_missing) {

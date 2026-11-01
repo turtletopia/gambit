@@ -31,6 +31,7 @@ needs_int <- function(param, expr, ..., na_ok = FALSE, lower = -Inf, upper = Inf
     TRUE,
     "156",
     list(156L),
+    156.5,
     c(156L, 157L),
     integer()
   )

@@ -27,7 +27,7 @@ needs_flag <- function(param, expr, ..., na_ok = FALSE, null_ok = FALSE) {
   failures <- list(
     156L,
     "TRUE",
-    list("TRUE"),
+    list(TRUE),
     c(TRUE, FALSE),
     logical()
   )

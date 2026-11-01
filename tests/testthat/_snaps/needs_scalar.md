@@ -154,7 +154,7 @@
 
     Code
       needs_scalar(param = "x", expr = identity(x = 0L), na_ok = list(
-          "TRUE"))
+          TRUE))
     Condition
       Error in `needs_scalar()`:
       ! Assertion on 'na_ok' failed: Must be of type 'logical flag', not 'list'.
@@ -212,7 +212,7 @@
 
     Code
       needs_scalar(param = "x", expr = identity(x = 0L), null_ok = list(
-          "TRUE"))
+          TRUE))
     Condition
       Error in `needs_scalar()`:
       ! Assertion on 'null_ok' failed: Must be of type 'logical flag', not 'list'.

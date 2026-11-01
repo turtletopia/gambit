@@ -4,7 +4,7 @@
 #' Runs a series of expectations with incorrect parameter values expecting errors. The values are selected to cover
 #' all different manners of incorrect input.
 #'
-#' @inherit needs_scalar details return
+#' @inherit fails_for details return
 #'
 #' @inheritParams needs_scalar
 #' @param lower `numeric(1)`\cr

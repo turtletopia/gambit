@@ -7,10 +7,9 @@
 #' @details
 #' Uses [testthat::expect_snapshot()] under the hood.
 #'
-#' @param param `character(1)`\cr
-#'  Name of the parameter to test.
-#' @param expr `call(1)`\cr
-#'  Example call to the tested function that does not fail.
+#' @inherit fails_for details return
+#'
+#' @inheritParams fails_for
 #' @param ...
 #'  Reserved for future extensions and must be empty.
 #' @param na_ok `logical(1)`\cr

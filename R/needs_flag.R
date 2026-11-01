@@ -6,7 +6,7 @@
 #'
 #' A flag is defined as single logical value.
 #'
-#' @inherit needs_scalar details return
+#' @inherit fails_for details return
 #'
 #' @inheritParams needs_scalar
 #'

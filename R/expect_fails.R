@@ -3,6 +3,7 @@ expect_fails <- function(quo, param, value) {
   # This mock fixes issue where rlang::expr_deparse() would print vectors in angle brackets <>
   #  which made expression execution fail
   testthat::local_mocked_bindings(
+    # TODO: Implement own `deparse()` counterpart (e.g. `to_snapshot()`) that handles envs and symbols
     expr_deparse = function(x, ...) { deparse(x) },
     .package = "testthat"
   )

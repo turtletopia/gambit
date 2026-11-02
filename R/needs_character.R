@@ -22,14 +22,9 @@ needs_character <- function(param, expr, ..., any_missing = FALSE, min_len = NUL
 
   if (!is.null(min_len) && min_len > 0L) {
     failures <- append(failures, list(
-      sprintf("string%i", seq_len(min_len - 1L))
+      sprintf("string%i", seq_len(min_len - 1L)),
+      character()
     ))
-
-    if (min_len > 1L) {
-      failures <- append(failures, list(
-        character()
-      ))
-    }
   }
 
   if (!is.null(max_len)) {

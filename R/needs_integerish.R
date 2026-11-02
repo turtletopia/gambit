@@ -37,14 +37,9 @@ needs_integerish <- function(param, expr, ..., lower = -Inf, upper = Inf, any_mi
 
   if (!is.null(min_len) && min_len > 0L) {
     failures <- append(failures, list(
-      seq_len(min_len - 1L)
+      seq_len(min_len - 1L),
+      integer()
     ))
-
-    if (min_len > 1L) {
-      failures <- append(failures, list(
-        integer()
-      ))
-    }
   }
 
   if (!is.null(max_len)) {

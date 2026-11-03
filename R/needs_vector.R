@@ -40,6 +40,7 @@ needs_vector <- function(
 
   checkmate::assert_flag(strict)
   checkmate::assert_flag(any_missing)
+  checkmate::assert_flag(all_missing)
   checkmate::assert_count(len, null.ok = TRUE)
   checkmate::assert_count(min_len, null.ok = TRUE)
   checkmate::assert_count(max_len, null.ok = TRUE)

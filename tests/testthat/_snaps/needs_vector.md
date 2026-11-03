@@ -200,16 +200,16 @@
     Code
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = 156L)
     Condition
-      Error:
-      ! Expected `identity(x = NULL)` to throw a error.
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'integer'.
 
 ---
 
     Code
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = "TRUE")
     Condition
-      Error in `!all_missing`:
-      ! invalid argument type
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'character'.
 
 ---
 
@@ -217,8 +217,8 @@
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = list(
           TRUE))
     Condition
-      Error in `!all_missing`:
-      ! invalid argument type
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'list'.
 
 ---
 
@@ -226,32 +226,32 @@
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = c(TRUE, 
       FALSE))
     Condition
-      Error in `if (!all_missing) ...`:
-      ! the condition has length > 1
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must have length 1.
 
 ---
 
     Code
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = logical(0))
     Condition
-      Error in `if (!all_missing) ...`:
-      ! argument is of length zero
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must have length 1.
 
 ---
 
     Code
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = NA)
     Condition
-      Error in `if (!all_missing) ...`:
-      ! missing value where TRUE/FALSE needed
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: May not be NA.
 
 ---
 
     Code
       needs_vector(param = "x", expr = identity(x = 0L), all_missing = NULL)
     Condition
-      Error in `!all_missing`:
-      ! invalid argument type
+      Error in `needs_vector()`:
+      ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'NULL'.
 
 # `len` can't be supplied with `min_len` or `max_len`
 

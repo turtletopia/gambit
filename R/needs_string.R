@@ -47,6 +47,7 @@ needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_ch
     ))
   }
 
+  # TODO: Handle case of `n_chars` = 0 (incl. other such args and other functions)
   if (!is.null(n_chars)) {
     failures <- append(failures, list(
       paste0(

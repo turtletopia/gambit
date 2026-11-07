@@ -106,8 +106,8 @@ needs_character <- function(
 
   if (!is.null(len)) {
     failures <- append(failures, list(
-      sprintf("string%i", seq_len(min_len - 1L)),
-      sprintf("string%i", seq_len(max_len + 1L))
+      sprintf("string%i", seq_len(len - 1L)),
+      sprintf("string%i", seq_len(len + 1L))
     ))
   }
 

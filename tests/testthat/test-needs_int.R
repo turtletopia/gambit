@@ -18,8 +18,8 @@ test_that("succeeds with an imported function", {
   )
 })
 
-# Parameter changes ------------------------------------------------------------
-test_that("by default, tests NULL and NA", {
+# Defaults ---------------------------------------------------------------------
+test_that("by default, tests 2+-length vector and 0-length vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -29,68 +29,45 @@ test_that("by default, tests NULL and NA", {
     ignored()
   )
 
-  expect_contains(failures, list(NULL, NA_integer_))
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, min.len = 2L)
+  })
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, len = 0L)
+  })
 })
 
-test_that("if `null_ok` then doesn't test NULL", {
+test_that("by default, tests a scalar of mismatched type", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
 
   failures <- needs_int(
     "x",
-    ignored(),
-    null_ok = TRUE
+    ignored()
   )
 
-  expect_contains(failures, list(NA_integer_))
-  expect_disjoint(failures, list(NULL))
+  expect_exists(failures, \(failure) {
+    checkmate::test_scalar(failure) && !checkmate::test_number(failure)
+  })
 })
 
-test_that("if `na_ok` then doesn't test NA", {
+test_that("by default, tests a number not convertible to int", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
 
   failures <- needs_int(
     "x",
-    ignored(),
-    na_ok = TRUE
+    ignored()
   )
 
-  expect_contains(failures, list(NULL))
-  expect_disjoint(failures, list(NA_integer_))
+  expect_exists(failures, \(failure) {
+    checkmate::test_number(failure) && !checkmate::test_int(failure)
+  })
 })
 
-test_that("if `lower` above -Inf then tests a too low value", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_int(
-    "x",
-    ignored(),
-    lower = 5
-  )
-
-  expect_contains(failures, list(NULL, NA_integer_, -Inf, 4L))
-})
-
-test_that("if `upper` below Inf then tests a too high value", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_int(
-    "x",
-    ignored(),
-    upper = 5
-  )
-
-  expect_contains(failures, list(NULL, NA_integer_, Inf, 6L))
-})
-
-# Parameter assertions ---------------------------------------------------------
+# `param` ----------------------------------------------------------------------
 test_that("`param` must be a string", {
   needs_string(
     "param",
@@ -106,6 +83,30 @@ test_that("`param` must be one of tested function parameters", {
   )
 })
 
+# `na_ok` ----------------------------------------------------------------------
+test_that("if `na_ok` then doesn't test NA", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_int(
+    "x",
+    ignored(),
+    na_ok = FALSE
+  )
+
+  expect_contains(failures, list(NA_integer_))
+
+  failures_2 <- needs_int(
+    "x",
+    ignored(),
+    na_ok = TRUE
+  )
+
+  expect_disjoint(failures_2, list(NA_integer_))
+  expect_in(failures_2, failures)
+})
+
 test_that("`na_ok` must be a flag", {
   needs_flag(
     "na_ok",
@@ -113,22 +114,94 @@ test_that("`na_ok` must be a flag", {
   )
 })
 
-test_that("`lower` must be a number or NULL", {
+# `lower` ----------------------------------------------------------------------
+test_that("if `lower` above -Inf then tests a too low value", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_int(
+    "x",
+    ignored(),
+    lower = 5L
+  )
+
+  expect_exists(failures, \(failure) {
+    checkmate::test_int(failure, upper = 4L)
+  })
+
+  failures_2 <- needs_int(
+    "x",
+    ignored(),
+    lower = -Inf
+  )
+
+  expect_in(failures_2, failures)
+})
+
+test_that("`lower` must be a number", {
   skip("Not implemented yet")
   needs_number(
     "lower",
-    needs_int("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_int("x", identity(x = 0L))
   )
 })
 
-test_that("`upper` must be a number or NULL", {
+# `upper` ----------------------------------------------------------------------
+test_that("if `upper` below Inf then tests a too high value", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_int(
+    "x",
+    ignored(),
+    upper = 5L
+  )
+
+  expect_exists(failures, \(failure) {
+    checkmate::test_int(failure, lower = 6L)
+  })
+
+  failures_2 <- needs_int(
+    "x",
+    ignored(),
+    upper = Inf
+  )
+
+  expect_in(failures_2, failures)
+})
+
+test_that("`upper` must be a number", {
   skip("Not implemented yet")
   needs_number(
     "upper",
-    needs_int("x", identity(x = 0L)),
+    needs_int("x", identity(x = 0L))
+  )
+})
+
+# `null_ok` --------------------------------------------------------------------
+test_that("if `null_ok` then doesn't test NULL", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_int(
+    "x",
+    ignored(),
+    null_ok = FALSE
+  )
+
+  expect_contains(failures, list(NULL))
+
+  failures_2 <- needs_int(
+    "x",
+    ignored(),
     null_ok = TRUE
   )
+
+  expect_disjoint(failures_2, list(NULL))
+  expect_in(failures_2, failures)
 })
 
 test_that("`null_ok` must be a flag", {

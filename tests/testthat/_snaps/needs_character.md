@@ -146,17 +146,17 @@
 # `n_chars` can't be supplied with `min_chars` or `max_chars`
 
     Code
-      needs_string("x", identity(x = 0L), n_chars = 4L, min_chars = 3L)
+      needs_character("x", identity(x = 0L), n_chars = 4L, min_chars = 3L)
     Condition
-      Error in `needs_string()`:
+      Error in `needs_character()`:
       ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
 
 ---
 
     Code
-      needs_string("x", identity(x = 0L), n_chars = 4L, max_chars = 5L)
+      needs_character("x", identity(x = 0L), n_chars = 4L, max_chars = 5L)
     Condition
-      Error in `needs_string()`:
+      Error in `needs_character()`:
       ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
 
 # `any_missing` must be a flag

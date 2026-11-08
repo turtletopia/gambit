@@ -18,8 +18,8 @@ test_that("succeeds with an imported function", {
   )
 })
 
-# Parameter changes ------------------------------------------------------------
-test_that("by default, tests NULL and NA", {
+# Defaults ---------------------------------------------------------------------
+test_that("by default, tests 2+-length vector and 0-length vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -29,24 +29,46 @@ test_that("by default, tests NULL and NA", {
     ignored()
   )
 
-  expect_contains(failures, list(NULL, NA_character_))
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, min.len = 2L)
+  })
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, len = 0L)
+  })
 })
 
-test_that("if `null_ok` then doesn't test NULL", {
+test_that("by default, tests a scalar of mismatched type", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
 
   failures <- needs_string(
     "x",
-    ignored(),
-    null_ok = TRUE
+    ignored()
   )
 
-  expect_contains(failures, list(NA_character_))
-  expect_disjoint(failures, list(NULL))
+  expect_exists(failures, \(failure) {
+    checkmate::test_scalar(failure) && !checkmate::test_string(failure)
+  })
 })
 
+# `param` ----------------------------------------------------------------------
+test_that("`param` must be a string", {
+  needs_string(
+    "param",
+    needs_string("x", identity(x = 0L))
+  )
+})
+
+test_that("`param` must be one of tested function parameters", {
+  expect_snapshot(
+    needs_string("y", identity(x = 0L)),
+    cran = TRUE,
+    error = TRUE
+  )
+})
+
+# `na_ok` ----------------------------------------------------------------------
 test_that("if `na_ok` then doesn't test NA", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
@@ -55,13 +77,29 @@ test_that("if `na_ok` then doesn't test NA", {
   failures <- needs_string(
     "x",
     ignored(),
+    na_ok = FALSE
+  )
+
+  expect_contains(failures, list(NA_character_))
+
+  failures_2 <- needs_string(
+    "x",
+    ignored(),
     na_ok = TRUE
   )
 
-  expect_contains(failures, list(NULL))
-  expect_disjoint(failures, list(NA_character_))
+  expect_disjoint(failures_2, list(NA_character_))
+  expect_in(failures_2, failures)
 })
 
+test_that("`na_ok` must be a flag", {
+  needs_flag(
+    "na_ok",
+    needs_string("x", identity(x = 0L))
+  )
+})
+
+# `n_chars` --------------------------------------------------------------------
 test_that("if `n_chars` not NULL then tests a too short and a too long string", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
@@ -79,85 +117,20 @@ test_that("if `n_chars` not NULL then tests a too short and a too long string", 
   expect_exists(failures, \(failure) {
     checkmate::test_string(failure, min.chars = 6L)
   })
-})
 
-test_that("if `min_chars` not NULL then tests a too short string", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_string(
+  failures_2 <- needs_string(
     "x",
     ignored(),
-    min_chars = 5L
+    n_chars = NULL
   )
 
-  expect_exists(failures, \(failure) {
-    checkmate::test_string(failure, max.chars = 4L)
-  })
-})
-
-test_that("if `max_chars` not NULL then tests a too long string", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_string(
-    "x",
-    ignored(),
-    max_chars = 5L
-  )
-
-  expect_exists(failures, \(failure) {
-    checkmate::test_string(failure, min.chars = 6L)
-  })
-})
-
-# Parameter assertions ---------------------------------------------------------
-test_that("`param` must be a string", {
-  needs_string(
-    "param",
-    needs_string("x", identity(x = 0L))
-  )
-})
-
-test_that("`param` must be one of tested function parameters", {
-  expect_snapshot(
-    needs_string("y", identity(x = 0L)),
-    cran = TRUE,
-    error = TRUE
-  )
-})
-
-test_that("`na_ok` must be a flag", {
-  needs_flag(
-    "na_ok",
-    needs_string("x", identity(x = 0L))
-  )
+  expect_in(failures_2, failures)
 })
 
 test_that("`n_chars` must be a count or NULL", {
   skip("Not implemented yet")
   needs_count(
     "n_chars",
-    needs_string("x", identity(x = 0L)),
-    null_ok = TRUE
-  )
-})
-
-test_that("`min_chars` must be a count or NULL", {
-  skip("Not implemented yet")
-  needs_count(
-    "min_chars",
-    needs_string("x", identity(x = 0L)),
-    null_ok = TRUE
-  )
-})
-
-test_that("`max_chars` must be a count or NULL", {
-  skip("Not implemented yet")
-  needs_count(
-    "max_chars",
     needs_string("x", identity(x = 0L)),
     null_ok = TRUE
   )
@@ -174,6 +147,98 @@ test_that("`n_chars` can't be supplied with `min_chars` or `max_chars`", {
     cran = TRUE,
     error = TRUE
   )
+})
+
+# `min_chars` ------------------------------------------------------------------
+test_that("if `min_chars` not NULL then tests a too short string", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_string(
+    "x",
+    ignored(),
+    min_chars = 5L
+  )
+
+  expect_exists(failures, \(failure) {
+    checkmate::test_string(failure, max.chars = 4L)
+  })
+
+  failures_2 <- needs_string(
+    "x",
+    ignored(),
+    min_chars = NULL
+  )
+
+  expect_in(failures_2, failures)
+})
+
+test_that("`min_chars` must be a count or NULL", {
+  skip("Not implemented yet")
+  needs_count(
+    "min_chars",
+    needs_string("x", identity(x = 0L)),
+    null_ok = TRUE
+  )
+})
+
+# `max_chars` ------------------------------------------------------------------
+test_that("if `max_chars` not NULL then tests a too long string", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_string(
+    "x",
+    ignored(),
+    max_chars = 5L
+  )
+
+  expect_exists(failures, \(failure) {
+    checkmate::test_string(failure, min.chars = 6L)
+  })
+
+  failures_2 <- needs_string(
+    "x",
+    ignored(),
+    max_chars = NULL
+  )
+
+  expect_in(failures_2, failures)
+})
+
+test_that("`max_chars` must be a count or NULL", {
+  skip("Not implemented yet")
+  needs_count(
+    "max_chars",
+    needs_string("x", identity(x = 0L)),
+    null_ok = TRUE
+  )
+})
+
+# `null_ok` --------------------------------------------------------------------
+test_that("if `null_ok` then doesn't test NULL", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_string(
+    "x",
+    ignored(),
+    null_ok = FALSE
+  )
+
+  expect_contains(failures, list(NULL))
+
+  failures_2 <- needs_string(
+    "x",
+    ignored(),
+    null_ok = TRUE
+  )
+
+  expect_disjoint(failures_2, list(NULL))
+  expect_in(failures_2, failures)
 })
 
 test_that("`null_ok` must be a flag", {

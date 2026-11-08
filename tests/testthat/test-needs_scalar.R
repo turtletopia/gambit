@@ -18,8 +18,8 @@ test_that("succeeds with an imported function", {
   )
 })
 
-# Parameter changes ------------------------------------------------------------
-test_that("by default, tests NULL and NA", {
+# Defaults ---------------------------------------------------------------------
+test_that("by default, tests 2+-length vector and 0-length vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -29,40 +29,15 @@ test_that("by default, tests NULL and NA", {
     ignored()
   )
 
-  expect_contains(failures, list(NULL, NA))
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, min.len = 2L)
+  })
+  expect_exists(failures, \(failure) {
+    checkmate::test_vector(failure, len = 0L)
+  })
 })
 
-test_that("if `null_ok` then doesn't test NULL", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_scalar(
-    "x",
-    ignored(),
-    null_ok = TRUE
-  )
-
-  expect_contains(failures, list(NA))
-  expect_disjoint(failures, list(NULL))
-})
-
-test_that("if `na_ok` then doesn't test NA", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_scalar(
-    "x",
-    ignored(),
-    na_ok = TRUE
-  )
-
-  expect_contains(failures, list(NULL))
-  expect_disjoint(failures, list(NA))
-})
-
-# Parameter assertions ---------------------------------------------------------
+# `param` ----------------------------------------------------------------------
 test_that("`param` must be a string", {
   needs_string(
     "param",
@@ -78,11 +53,59 @@ test_that("`param` must be one of tested function parameters", {
   )
 })
 
+# `na_ok` ----------------------------------------------------------------------
+test_that("if `na_ok` then doesn't test NA", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_scalar(
+    "x",
+    ignored(),
+    na_ok = FALSE
+  )
+
+  expect_contains(failures, list(NA))
+
+  failures_2 <- needs_scalar(
+    "x",
+    ignored(),
+    na_ok = TRUE
+  )
+
+  expect_disjoint(failures_2, list(NA))
+  expect_in(failures_2, failures)
+})
+
 test_that("`na_ok` must be a flag", {
   needs_flag(
     "na_ok",
     needs_scalar("x", identity(x = 0L))
   )
+})
+
+# `null_ok` --------------------------------------------------------------------
+test_that("if `null_ok` then doesn't test NULL", {
+  testthat::local_mocked_bindings(
+    fails_for = function(expr, param, failures) { failures }
+  )
+
+  failures <- needs_scalar(
+    "x",
+    ignored(),
+    null_ok = FALSE
+  )
+
+  expect_contains(failures, list(NULL))
+
+  failures_2 <- needs_scalar(
+    "x",
+    ignored(),
+    null_ok = TRUE
+  )
+
+  expect_disjoint(failures_2, list(NULL))
+  expect_in(failures_2, failures)
 })
 
 test_that("`null_ok` must be a flag", {

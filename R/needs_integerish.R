@@ -29,7 +29,7 @@ needs_integerish <- function(
   ellipsis::check_dots_empty()
 
   checkmate::assert_number(lower)
-  checkmate::assert_number(upper)
+  checkmate::assert_number(upper, lower = lower)
   checkmate::assert_flag(any_missing)
   checkmate::assert_flag(all_missing)
   assert_bounds(len, min_len, max_len)

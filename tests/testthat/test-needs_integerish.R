@@ -98,6 +98,14 @@ test_that("`upper` must be a number", {
   )
 })
 
+test_that("`upper` must not be less than `lower`", {
+  expect_snapshot(
+    needs_integerish("x", identity(x = 0L), lower = 5L, upper = 3L),
+    cran = TRUE,
+    error = TRUE
+  )
+})
+
 # `any_missing` ----------------------------------------------------------------
 test_that("if not `any_missing` then tests a vector with NA", {
   testthat::local_mocked_bindings(

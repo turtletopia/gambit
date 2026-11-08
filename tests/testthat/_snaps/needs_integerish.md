@@ -110,6 +110,14 @@
       Error in `fails_for()`:
       ! Assertion on 'param' failed: Must be element of set {'x'}, but is 'y'.
 
+# `upper` must not be less than `lower`
+
+    Code
+      needs_integerish("x", identity(x = 0L), lower = 5L, upper = 3L)
+    Condition
+      Error in `needs_integerish()`:
+      ! Assertion on 'upper' failed: Element 1 is not >= 5.
+
 # `any_missing` must be a flag
 
     Code

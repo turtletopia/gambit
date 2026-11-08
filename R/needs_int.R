@@ -24,7 +24,7 @@ needs_int <- function(param, expr, ..., na_ok = FALSE, lower = -Inf, upper = Inf
 
   checkmate::assert_flag(na_ok)
   checkmate::assert_number(lower)
-  checkmate::assert_number(upper)
+  checkmate::assert_number(upper, lower = lower)
   checkmate::assert_flag(null_ok)
 
   failures <- list(

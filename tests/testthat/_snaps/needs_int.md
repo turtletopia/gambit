@@ -240,6 +240,14 @@
       Error in `needs_int()`:
       ! Assertion on 'na_ok' failed: Must be of type 'logical flag', not 'NULL'.
 
+# `upper` must not be less than `lower`
+
+    Code
+      needs_int("x", identity(x = 0L), lower = 5L, upper = 3L)
+    Condition
+      Error in `needs_int()`:
+      ! Assertion on 'upper' failed: Element 1 is not >= 5.
+
 # `null_ok` must be a flag
 
     Code

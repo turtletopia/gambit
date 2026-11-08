@@ -180,6 +180,14 @@ test_that("`upper` must be a number", {
   )
 })
 
+test_that("`upper` must not be less than `lower`", {
+  expect_snapshot(
+    needs_int("x", identity(x = 0L), lower = 5L, upper = 3L),
+    cran = TRUE,
+    error = TRUE
+  )
+})
+
 # `null_ok` --------------------------------------------------------------------
 test_that("if `null_ok` then doesn't test NULL", {
   testthat::local_mocked_bindings(

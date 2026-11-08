@@ -14,5 +14,24 @@ You can install the development version of thisparam from
 pak::pak("turtletopia/thisparam")
 ```
 
-# 
+# Package index
+
+## All functions
+
+- [`fails_for()`](https://turtletopia.github.io/thisparam/reference/fails_for.md)
+  : Test a parameter against failing values
+- [`needs_character()`](https://turtletopia.github.io/thisparam/reference/needs_character.md)
+  : Test if parameter needs a character vector
+- [`needs_flag()`](https://turtletopia.github.io/thisparam/reference/needs_flag.md)
+  : Test a parameter that needs a flag
+- [`needs_int()`](https://turtletopia.github.io/thisparam/reference/needs_int.md)
+  : Test a parameter that needs a single integerish value
+- [`needs_integerish()`](https://turtletopia.github.io/thisparam/reference/needs_integerish.md)
+  : Test if parameter needs an integerish vector
+- [`needs_scalar()`](https://turtletopia.github.io/thisparam/reference/needs_scalar.md)
+  : Test a parameter that needs a single atomic value
+- [`needs_string()`](https://turtletopia.github.io/thisparam/reference/needs_string.md)
+  : Test a parameter that needs a string
+- [`needs_vector()`](https://turtletopia.github.io/thisparam/reference/needs_vector.md)
+  : Test if parameter needs a vector
 

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(thisparam)
+library(gambit)
 
-test_check("thisparam")
+test_check("gambit")

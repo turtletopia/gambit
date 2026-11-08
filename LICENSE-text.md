@@ -1,4 +1,4 @@
 # License
 
     YEAR: 2026
-    COPYRIGHT HOLDER: thisparam authors
+    COPYRIGHT HOLDER: gambit authors

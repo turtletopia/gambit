@@ -7,13 +7,13 @@
 
 ## Citation
 
-Bakala L (2026). *thisparam: Test Suite Counterpart to 'checkmate'*. R
-package version 0.0.0.9000, <https://turtletopia.github.io/thisparam/>.
+Bakala L (2026). *gambit: Test Suite Counterpart to 'checkmate'*. R
+package version 0.0.0.9000, <https://turtletopia.github.io/gambit/>.
 
     @Manual{,
-      title = {thisparam: Test Suite Counterpart to 'checkmate'},
+      title = {gambit: Test Suite Counterpart to 'checkmate'},
       author = {Laura Bakala},
       year = {2026},
       note = {R package version 0.0.0.9000},
-      url = {https://turtletopia.github.io/thisparam/},
+      url = {https://turtletopia.github.io/gambit/},
     }

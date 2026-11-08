@@ -85,3 +85,6 @@ needs_character(
   null_ok = TRUE
 )
 }
+\seealso{
+\code{\link[checkmate:assert_character]{checkmate::assert_character()}} for \pkg{checkmate} counterpart.
+}

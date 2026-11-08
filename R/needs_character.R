@@ -18,6 +18,8 @@
 #' @param typed_missing `logical(1)`\cr
 #'  Whether `NA` of non-numeric types should be marked as invalid or not.
 #'
+#' @seealso [checkmate::assert_character()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' needs_character(
 #'   "subset.of",

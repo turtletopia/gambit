@@ -19,6 +19,8 @@
 #' @param typed_missing `logical(1)`\cr
 #'  Whether `NA` of non-numeric types should be marked as invalid or not.
 #'
+#' @seealso [checkmate::assert_integerish()] for \pkg{checkmate} counterpart.
+#'
 #' @export
 needs_integerish <- function(
   param, expr, ...,

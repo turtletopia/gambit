@@ -69,3 +69,6 @@ needs_vector(
   null_ok = TRUE
 )
 }
+\seealso{
+\code{\link[checkmate:assert_vector]{checkmate::assert_vector()}} for \pkg{checkmate} counterpart.
+}

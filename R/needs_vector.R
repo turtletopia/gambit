@@ -22,6 +22,8 @@
 #' @param unique `logical(1)`\cr
 #'  Whether all values must be unique or not.
 #'
+#' @seealso [checkmate::assert_vector()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' needs_vector(
 #'   "subset.of",

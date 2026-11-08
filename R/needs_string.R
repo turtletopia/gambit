@@ -14,6 +14,8 @@
 #' @param max_chars `integer(1)`\cr
 #'  Maximum length of all strings. Must be more than `min_chars`. If these were to be equal, set `n_chars` instead.
 #'
+#' @seealso [checkmate::assert_string()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' needs_string(
 #'   "pattern",

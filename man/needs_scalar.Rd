@@ -41,3 +41,6 @@ needs_scalar(
   test_function(x = 3L)
 )
 }
+\seealso{
+\code{\link[checkmate:assert_scalar]{checkmate::assert_scalar()}} for \pkg{checkmate} counterpart.
+}

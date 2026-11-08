@@ -52,3 +52,6 @@ needs_int(
   null_ok = TRUE
 )
 }
+\seealso{
+\code{\link[checkmate:assert_int]{checkmate::assert_int()}} for \pkg{checkmate} counterpart.
+}

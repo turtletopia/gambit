@@ -76,3 +76,6 @@ values sufficiently close to integers.
 \details{
 Uses \code{\link[testthat:expect_snapshot]{testthat::expect_snapshot()}} under the hood.
 }
+\seealso{
+\code{\link[checkmate:assert_integerish]{checkmate::assert_integerish()}} for \pkg{checkmate} counterpart.
+}

@@ -1,4 +1,4 @@
-#' Test if parameter needs a character vector
+#' Test a parameter that needs a character vector
 #'
 #' @description
 #' Runs a series of expectations with incorrect parameter values expecting errors. The values are selected to cover

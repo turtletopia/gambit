@@ -2,7 +2,7 @@
 % Please edit documentation in R/needs_vector.R
 \name{needs_vector}
 \alias{needs_vector}
-\title{Test if parameter needs a vector}
+\title{Test a parameter that needs a vector}
 \usage{
 needs_vector(
   param,

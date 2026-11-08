@@ -2,7 +2,7 @@
 % Please edit documentation in R/needs_character.R
 \name{needs_character}
 \alias{needs_character}
-\title{Test if parameter needs a character vector}
+\title{Test a parameter that needs a character vector}
 \usage{
 needs_character(
   param,

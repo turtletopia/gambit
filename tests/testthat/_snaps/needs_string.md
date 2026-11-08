@@ -231,7 +231,7 @@
       needs_string("x", identity(x = 0L), n_chars = 4L, min_chars = 3L)
     Condition
       Error in `needs_string()`:
-      ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
+      ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
 
 ---
 
@@ -239,7 +239,23 @@
       needs_string("x", identity(x = 0L), n_chars = 4L, max_chars = 5L)
     Condition
       Error in `needs_string()`:
-      ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
+      ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
+
+# `max_chars` must exceed `min_chars`
+
+    Code
+      needs_string("x", identity(x = 0L), max_chars = 0L)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_string("x", identity(x = 0L), min_chars = 5L, max_chars = 3L)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 6.
 
 # `null_ok` must be a flag
 

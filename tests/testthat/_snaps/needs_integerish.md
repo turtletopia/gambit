@@ -232,7 +232,7 @@
       needs_integerish("x", identity(x = 0L), len = 4L, min_len = 3L)
     Condition
       Error in `needs_integerish()`:
-      ! Assertion on '!is.null(len) && (!is.null(min_len) || !is.null(max_len))' failed: Must be FALSE.
+      ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
 
 ---
 
@@ -240,7 +240,23 @@
       needs_integerish("x", identity(x = 0L), len = 4L, max_len = 5L)
     Condition
       Error in `needs_integerish()`:
-      ! Assertion on '!is.null(len) && (!is.null(min_len) || !is.null(max_len))' failed: Must be FALSE.
+      ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
+
+# `max_len` must exceed `min_len`
+
+    Code
+      needs_integerish("x", identity(x = 0L), max_len = 0L)
+    Condition
+      Error in `needs_integerish()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_integerish("x", identity(x = 0L), min_len = 5L, max_len = 3L)
+    Condition
+      Error in `needs_integerish()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 6.
 
 # `unique` must be a flag
 

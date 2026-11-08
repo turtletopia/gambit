@@ -9,13 +9,13 @@ needs_character(
   expr,
   ...,
   n_chars = NULL,
-  min_chars = NULL,
-  max_chars = NULL,
+  min_chars = 0L,
+  max_chars = Inf,
   any_missing = TRUE,
   all_missing = TRUE,
   len = NULL,
-  min_len = NULL,
-  max_len = NULL,
+  min_len = 0L,
+  max_len = Inf,
   unique = FALSE,
   sorted = FALSE,
   typed_missing = TRUE,
@@ -34,11 +34,11 @@ Example call to the tested function that does not fail.}
 \item{n_chars}{\code{integer(1) | NULL}\cr
 Exact length of all strings. If specified, can't specify \code{min_chars} nor \code{max_chars}.}
 
-\item{min_chars}{\code{integer(1) | NULL}\cr
+\item{min_chars}{\code{integer(1)}\cr
 Minimum length of all strings.}
 
-\item{max_chars}{\code{integer(1) | NULL}\cr
-Maximum length of all strings.}
+\item{max_chars}{\code{integer(1)}\cr
+Maximum length of all strings. Must be more than \code{min_chars}. If these were to be equal, set \code{n_chars} instead.}
 
 \item{any_missing}{\code{logical(1)}\cr
 Whether missing values are allowed or not.}
@@ -46,14 +46,14 @@ Whether missing values are allowed or not.}
 \item{all_missing}{\code{logical(1)}\cr
 Whether vectors with no non-missing values are allowed or not.}
 
-\item{len}{\code{integer(1)}\cr
+\item{len}{\code{integer(1) | NULL}\cr
 Exact length of the vector. If specified, can't specify \code{min_len} nor \code{max_len}.}
 
 \item{min_len}{\code{integer(1)}\cr
 Minimum length of the vector.}
 
 \item{max_len}{\code{integer(1)}\cr
-Maximum length of the vector.}
+Maximum length of the vector. Must be more than \code{min_len}. If these were to be equal, set \code{len} instead.}
 
 \item{unique}{\code{logical(1)}\cr
 Whether all values must be unique or not.}

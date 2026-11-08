@@ -13,12 +13,12 @@
 #'  Whether missing values are allowed or not.
 #' @param all_missing `logical(1)`\cr
 #'  Whether vectors with no non-missing values are allowed or not.
-#' @param len `integer(1)`\cr
+#' @param len `integer(1) | NULL`\cr
 #'  Exact length of the vector. If specified, can't specify `min_len` nor `max_len`.
 #' @param min_len `integer(1)`\cr
 #'  Minimum length of the vector.
 #' @param max_len `integer(1)`\cr
-#'  Maximum length of the vector.
+#'  Maximum length of the vector. Must be more than `min_len`. If these were to be equal, set `len` instead.
 #' @param unique `logical(1)`\cr
 #'  Whether all values must be unique or not.
 #'
@@ -33,7 +33,7 @@
 needs_vector <- function(
   param, expr, ...,
   strict = FALSE, any_missing = TRUE, all_missing = TRUE,
-  len = NULL, min_len = NULL, max_len = NULL, unique = FALSE, null_ok = FALSE
+  len = NULL, min_len = 0L, max_len = Inf, unique = FALSE, null_ok = FALSE
 ) {
   # TODO: Think about `named`
   ellipsis::check_dots_empty()
@@ -41,12 +41,7 @@ needs_vector <- function(
   checkmate::assert_flag(strict)
   checkmate::assert_flag(any_missing)
   checkmate::assert_flag(all_missing)
-  checkmate::assert_count(len, null.ok = TRUE)
-  checkmate::assert_count(min_len, null.ok = TRUE)
-  checkmate::assert_count(max_len, null.ok = TRUE)
-  checkmate::assert_false(
-    !is.null(len) && (!is.null(min_len) || !is.null(max_len))
-  )
+  assert_bounds(len, min_len, max_len)
   checkmate::assert_flag(unique)
   checkmate::assert_flag(null_ok)
 
@@ -84,14 +79,14 @@ needs_vector <- function(
     ))
   }
 
-  if (!is.null(min_len) && min_len > 0L) {
+  if (min_len > 0L) {
     failures <- append(failures, list(
       character(),
       rep("x", times = min_len - 1L)
     ))
   }
 
-  if (!is.null(max_len)) {
+  if (max_len < Inf) {
     failures <- append(failures, list(
       rep("x", times = max_len + 1L)
     ))

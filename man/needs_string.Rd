@@ -10,8 +10,8 @@ needs_string(
   ...,
   na_ok = FALSE,
   n_chars = NULL,
-  min_chars = NULL,
-  max_chars = NULL,
+  min_chars = 0L,
+  max_chars = Inf,
   null_ok = FALSE
 )
 }
@@ -30,11 +30,11 @@ Whether missing values are allowed or not.}
 \item{n_chars}{\code{integer(1) | NULL}\cr
 Exact length of the string. If specified, can't specify \code{min_chars} nor \code{max_chars}.}
 
-\item{min_chars}{\code{integer(1) | NULL}\cr
+\item{min_chars}{\code{integer(1)}\cr
 Minimum length of the string.}
 
-\item{max_chars}{\code{integer(1) | NULL}\cr
-Maximum length of the string.}
+\item{max_chars}{\code{integer(1)}\cr
+Maximum length of all strings. Must be more than \code{min_chars}. If these were to be equal, set \code{n_chars} instead.}
 
 \item{null_ok}{\code{logical(1)}\cr
 Whether \code{NULL} is also allowed or not.}

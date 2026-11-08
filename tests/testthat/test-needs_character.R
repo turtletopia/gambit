@@ -86,7 +86,7 @@ test_that("`n_chars` can't be supplied with `min_chars` or `max_chars`", {
 })
 
 # `min_chars` ------------------------------------------------------------------
-test_that("if `min_chars` not NULL then tests a too short string", {
+test_that("if `min_chars` more than 0 then tests a too short string", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -104,7 +104,7 @@ test_that("if `min_chars` not NULL then tests a too short string", {
   failures_2 <- needs_character(
     "x",
     ignored(),
-    min_chars = NULL
+    min_chars = 0L
   )
 
   expect_in(failures_2, failures)
@@ -114,13 +114,12 @@ test_that("`min_chars` must be a count or NULL", {
   skip("Not implemented yet")
   needs_count(
     "min_chars",
-    needs_character("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_character("x", identity(x = 0L))
   )
 })
 
 # `max_chars` ------------------------------------------------------------------
-test_that("if `max_chars` not NULL then tests a too long string", {
+test_that("if `max_chars` less than Inf then tests a too long string", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -138,7 +137,7 @@ test_that("if `max_chars` not NULL then tests a too long string", {
   failures_2 <- needs_character(
     "x",
     ignored(),
-    max_chars = NULL
+    max_chars = Inf
   )
 
   expect_in(failures_2, failures)
@@ -148,8 +147,20 @@ test_that("`max_chars` must be a count or NULL", {
   skip("Not implemented yet")
   needs_count(
     "max_chars",
-    needs_character("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_character("x", identity(x = 0L))
+  )
+})
+
+test_that("`max_chars` must exceed `min_chars`", {
+  expect_snapshot(
+    needs_character("x", identity(x = 0L), max_chars = 0L),
+    cran = TRUE,
+    error = TRUE
+  )
+  expect_snapshot(
+    needs_character("x", identity(x = 0L), min_chars = 5L, max_chars = 3L),
+    cran = TRUE,
+    error = TRUE
   )
 })
 
@@ -274,7 +285,7 @@ test_that("`len` can't be supplied with `min_len` or `max_len`", {
 })
 
 # `min_len` --------------------------------------------------------------------
-test_that("if `min_len` not NULL then tests a too short vector", {
+test_that("if `min_len` more than 0 then tests a too short vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -292,23 +303,22 @@ test_that("if `min_len` not NULL then tests a too short vector", {
   failures_2 <- needs_character(
     "x",
     ignored(),
-    min_len = NULL
+    min_len = 0L
   )
 
   expect_in(failures_2, failures)
 })
 
-test_that("`min_len` must be a count or NULL", {
+test_that("`min_len` must be a count", {
   skip("Not implemented yet")
   needs_count(
     "min_len",
-    needs_character("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_character("x", identity(x = 0L))
   )
 })
 
 # `max_len` --------------------------------------------------------------------
-test_that("if `max_len` not NULL then tests a too long vector", {
+test_that("if `max_len` less than Inf then tests a too long vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -326,18 +336,30 @@ test_that("if `max_len` not NULL then tests a too long vector", {
   failures_2 <- needs_character(
     "x",
     ignored(),
-    max_len = NULL
+    max_len = Inf
   )
 
   expect_in(failures_2, failures)
 })
 
-test_that("`max_len` must be a count or NULL", {
+test_that("`max_len` must be a count", {
   skip("Not implemented yet")
   needs_count(
     "max_len",
-    needs_character("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_character("x", identity(x = 0L))
+  )
+})
+
+test_that("`max_len` must exceed `min_len`", {
+  expect_snapshot(
+    needs_character("x", identity(x = 0L), max_len = 0L),
+    cran = TRUE,
+    error = TRUE
+  )
+  expect_snapshot(
+    needs_character("x", identity(x = 0L), min_len = 5L, max_len = 3L),
+    cran = TRUE,
+    error = TRUE
   )
 })
 

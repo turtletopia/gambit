@@ -23,7 +23,7 @@
 needs_integerish <- function(
   param, expr, ...,
   lower = -Inf, upper = Inf, any_missing = TRUE, all_missing = TRUE,
-  len = NULL, min_len = NULL, max_len = NULL, unique = FALSE, sorted = FALSE,
+  len = NULL, min_len = 0L, max_len = Inf, unique = FALSE, sorted = FALSE,
   typed_missing = TRUE, null_ok = FALSE
 ) {
   ellipsis::check_dots_empty()
@@ -32,12 +32,7 @@ needs_integerish <- function(
   checkmate::assert_number(upper)
   checkmate::assert_flag(any_missing)
   checkmate::assert_flag(all_missing)
-  checkmate::assert_count(len, null.ok = TRUE)
-  checkmate::assert_count(min_len, null.ok = TRUE)
-  checkmate::assert_count(max_len, null.ok = TRUE)
-  checkmate::assert_false(
-    !is.null(len) && (!is.null(min_len) || !is.null(max_len))
-  )
+  assert_bounds(len, min_len, max_len)
   checkmate::assert_flag(unique)
   checkmate::assert_flag(sorted)
   checkmate::assert_flag(typed_missing)
@@ -84,14 +79,14 @@ needs_integerish <- function(
     ))
   }
 
-  if (!is.null(min_len) && min_len > 0L) {
+  if (min_len > 0L) {
     failures <- append(failures, list(
       integer(),
       seq_len(min_len - 1L)
     ))
   }
 
-  if (!is.null(max_len)) {
+  if (max_len < Inf) {
     failures <- append(failures, list(
       seq_len(max_len + 1L)
     ))

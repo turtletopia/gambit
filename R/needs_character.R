@@ -9,10 +9,10 @@
 #' @inheritParams needs_vector
 #' @param n_chars `integer(1) | NULL`\cr
 #'  Exact length of all strings. If specified, can't specify `min_chars` nor `max_chars`.
-#' @param min_chars `integer(1) | NULL`\cr
+#' @param min_chars `integer(1)`\cr
 #'  Minimum length of all strings.
-#' @param max_chars `integer(1) | NULL`\cr
-#'  Maximum length of all strings.
+#' @param max_chars `integer(1)`\cr
+#'  Maximum length of all strings. Must be more than `min_chars`. If these were to be equal, set `n_chars` instead.
 #' @param sorted `logical(1)`\cr
 #'  Whether elements must be sorted in ascending order.
 #' @param typed_missing `logical(1)`\cr
@@ -28,26 +28,16 @@
 #' @export
 needs_character <- function(
   param, expr, ...,
-  n_chars = NULL, min_chars = NULL, max_chars = NULL, any_missing = TRUE, all_missing = TRUE,
-  len = NULL, min_len = NULL, max_len = NULL, unique = FALSE, sorted = FALSE,
+  n_chars = NULL, min_chars = 0L, max_chars = Inf, any_missing = TRUE, all_missing = TRUE,
+  len = NULL, min_len = 0L, max_len = Inf, unique = FALSE, sorted = FALSE,
   typed_missing = TRUE, null_ok = FALSE
 ) {
   ellipsis::check_dots_empty()
 
-  checkmate::assert_count(n_chars, null.ok = TRUE)
-  checkmate::assert_count(min_chars, null.ok = TRUE)
-  checkmate::assert_count(max_chars, null.ok = TRUE)
-  checkmate::assert_false(
-    !is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))
-  )
+  assert_bounds(n_chars, min_chars, max_chars)
   checkmate::assert_flag(any_missing)
   checkmate::assert_flag(all_missing)
-  checkmate::assert_count(len, null.ok = TRUE)
-  checkmate::assert_count(min_len, null.ok = TRUE)
-  checkmate::assert_count(max_len, null.ok = TRUE)
-  checkmate::assert_false(
-    !is.null(len) && (!is.null(min_len) || !is.null(max_len))
-  )
+  assert_bounds(len, min_len, max_len)
   checkmate::assert_flag(unique)
   checkmate::assert_flag(sorted)
   checkmate::assert_flag(typed_missing)
@@ -72,7 +62,7 @@ needs_character <- function(
     ))
   }
 
-  if (!is.null(min_chars) && min_chars > 0L) {
+  if (min_chars > 0L) {
     failures <- append(failures, list(
       "",
       paste0(
@@ -82,7 +72,7 @@ needs_character <- function(
     ))
   }
 
-  if (!is.null(max_chars)) {
+  if (max_chars < Inf) {
     failures <- append(failures, list(
       paste0(
         rep("x", times = max_chars + 1L),
@@ -111,14 +101,14 @@ needs_character <- function(
     ))
   }
 
-  if (!is.null(min_len) && min_len > 0L) {
+  if (min_len > 0L) {
     failures <- append(failures, list(
       character(),
       sprintf("string%i", seq_len(min_len - 1L))
     ))
   }
 
-  if (!is.null(max_len)) {
+  if (max_len < Inf) {
     failures <- append(failures, list(
       sprintf("string%i", seq_len(max_len + 1L))
     ))

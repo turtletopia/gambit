@@ -188,7 +188,7 @@ test_that("`len` can't be supplied with `min_len` or `max_len`", {
 })
 
 # `min_len` --------------------------------------------------------------------
-test_that("if `min_len` not NULL then tests a too short vector", {
+test_that("if `min_len` more than 0 then tests a too short vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -206,23 +206,22 @@ test_that("if `min_len` not NULL then tests a too short vector", {
   failures_2 <- needs_vector(
     "x",
     ignored(),
-    min_len = NULL
+    min_len = 0L
   )
 
   expect_in(failures_2, failures)
 })
 
-test_that("`min_len` must be a count or NULL", {
+test_that("`min_len` must be a count", {
   skip("Not implemented yet")
   needs_count(
     "min_len",
-    needs_vector("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_vector("x", identity(x = 0L))
   )
 })
 
 # `max_len` --------------------------------------------------------------------
-test_that("if `max_len` not NULL then tests a too long vector", {
+test_that("if `max_len` less than Inf then tests a too long vector", {
   testthat::local_mocked_bindings(
     fails_for = function(expr, param, failures) { failures }
   )
@@ -240,18 +239,30 @@ test_that("if `max_len` not NULL then tests a too long vector", {
   failures_2 <- needs_vector(
     "x",
     ignored(),
-    max_len = NULL
+    max_len = Inf
   )
 
   expect_in(failures_2, failures)
 })
 
-test_that("`max_len` must be a count or NULL", {
+test_that("`max_len` must be a count", {
   skip("Not implemented yet")
   needs_count(
     "max_len",
-    needs_vector("x", identity(x = 0L)),
-    null_ok = TRUE
+    needs_vector("x", identity(x = 0L))
+  )
+})
+
+test_that("`max_len` must exceed `min_len`", {
+  expect_snapshot(
+    needs_vector("x", identity(x = 0L), max_len = 0L),
+    cran = TRUE,
+    error = TRUE
+  )
+  expect_snapshot(
+    needs_vector("x", identity(x = 0L), min_len = 5L, max_len = 3L),
+    cran = TRUE,
+    error = TRUE
   )
 })
 

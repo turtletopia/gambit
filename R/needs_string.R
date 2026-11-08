@@ -9,10 +9,10 @@
 #' @inheritParams needs_scalar
 #' @param n_chars `integer(1) | NULL`\cr
 #'  Exact length of the string. If specified, can't specify `min_chars` nor `max_chars`.
-#' @param min_chars `integer(1) | NULL`\cr
+#' @param min_chars `integer(1)`\cr
 #'  Minimum length of the string.
-#' @param max_chars `integer(1) | NULL`\cr
-#'  Maximum length of the string.
+#' @param max_chars `integer(1)`\cr
+#'  Maximum length of all strings. Must be more than `min_chars`. If these were to be equal, set `n_chars` instead.
 #'
 #' @examples
 #' needs_string(
@@ -21,16 +21,11 @@
 #'   null_ok = TRUE
 #' )
 #' @export
-needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_chars = NULL, max_chars = NULL, null_ok = FALSE) {
+needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_chars = 0L, max_chars = Inf, null_ok = FALSE) {
   ellipsis::check_dots_empty()
 
   checkmate::assert_flag(na_ok)
-  checkmate::assert_count(n_chars, null.ok = TRUE)
-  checkmate::assert_count(min_chars, null.ok = TRUE)
-  checkmate::assert_count(max_chars, null.ok = TRUE)
-  checkmate::assert_false(
-    !is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))
-  )
+  assert_bounds(n_chars, min_chars, max_chars)
   checkmate::assert_flag(null_ok)
 
   failures <- list(
@@ -61,7 +56,7 @@ needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_ch
     ))
   }
 
-  if (!is.null(min_chars) && min_chars > 0L) {
+  if (min_chars > 0L) {
     failures <- append(failures, list(
       "",
       paste0(
@@ -71,7 +66,7 @@ needs_string <- function(param, expr, ..., na_ok = FALSE, n_chars = NULL, min_ch
     ))
   }
 
-  if (!is.null(max_chars)) {
+  if (max_chars < Inf) {
     failures <- append(failures, list(
       paste0(
         rep("x", times = max_chars + 1L),

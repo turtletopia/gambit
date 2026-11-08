@@ -149,7 +149,7 @@
       needs_character("x", identity(x = 0L), n_chars = 4L, min_chars = 3L)
     Condition
       Error in `needs_character()`:
-      ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
+      ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
 
 ---
 
@@ -157,7 +157,23 @@
       needs_character("x", identity(x = 0L), n_chars = 4L, max_chars = 5L)
     Condition
       Error in `needs_character()`:
-      ! Assertion on '!is.null(n_chars) && (!is.null(min_chars) || !is.null(max_chars))' failed: Must be FALSE.
+      ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
+
+# `max_chars` must exceed `min_chars`
+
+    Code
+      needs_character("x", identity(x = 0L), max_chars = 0L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_character("x", identity(x = 0L), min_chars = 5L, max_chars = 3L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 6.
 
 # `any_missing` must be a flag
 
@@ -281,7 +297,7 @@
       needs_character("x", identity(x = 0L), len = 4L, min_len = 3L)
     Condition
       Error in `needs_character()`:
-      ! Assertion on '!is.null(len) && (!is.null(min_len) || !is.null(max_len))' failed: Must be FALSE.
+      ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
 
 ---
 
@@ -289,7 +305,23 @@
       needs_character("x", identity(x = 0L), len = 4L, max_len = 5L)
     Condition
       Error in `needs_character()`:
-      ! Assertion on '!is.null(len) && (!is.null(min_len) || !is.null(max_len))' failed: Must be FALSE.
+      ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
+
+# `max_len` must exceed `min_len`
+
+    Code
+      needs_character("x", identity(x = 0L), max_len = 0L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_character("x", identity(x = 0L), min_len = 5L, max_len = 3L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 6.
 
 # `unique` must be a flag
 

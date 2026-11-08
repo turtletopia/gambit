@@ -55,5 +55,60 @@ needs_flag(
   "any.missing",
   checkmate::test_integer(5L, any.missing = TRUE)
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = 156L)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is integer
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = "TRUE")
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is character
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = list(TRUE))
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is list
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = c(TRUE, FALSE))
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is logical
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = logical(0))
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is logical
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = NA)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' may not be missing
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_integer(x = 5L, any.missing = NULL)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'any.missing' must be a flag, but is NULL
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

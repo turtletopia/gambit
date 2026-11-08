@@ -49,5 +49,28 @@ fails_for(
     "chromium"
   )
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_os(os = 0L)
+#> Condition
+#>   Error in `match.arg()`:
+#>   ! 'arg' must be NULL or a character vector
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_os(os = character(0))
+#> Condition
+#>   Error in `match.arg()`:
+#>   ! 'arg' must be of length >= 1
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_os(os = "chromium")
+#> Condition
+#>   Error in `match.arg()`:
+#>   ! 'arg' should be one of “windows”, “mac”, “linux”, “solaris”
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

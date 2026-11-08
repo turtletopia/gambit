@@ -87,9 +87,64 @@ Whether <code>NULL</code> is also allowed or not.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">needs_flag</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"any.missing"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu">test_integer</span><span class="op">(</span><span class="fl">5L</span>, any.missing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkInteger.html" class="external-link">test_integer</a></span><span class="op">(</span><span class="fl">5L</span>, any.missing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘checkmate’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = 156L)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = "TRUE")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is character</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = list(TRUE))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = c(TRUE, FALSE))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is logical</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = logical(0))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is logical</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = NA)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' may not be missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_integer(x = 5L, any.missing = NULL)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `isTRUE()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Argument 'any.missing' must be a flag, but is NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

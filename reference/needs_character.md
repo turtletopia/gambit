@@ -125,5 +125,45 @@ needs_character(
   any_missing = FALSE,
   null_ok = TRUE
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters, subset.of = TRUE)
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. Must be of class 'string', not 'logical'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters, subset.of = 156L)
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. Must be of class 'string', not 'integer'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters, subset.of = list("string"))
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. Must be of class 'string', not 'list'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters, subset.of = c("string", NA
+#>   ))
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. May not contain missing values, first at position 2.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters, subset.of = NA_integer_)
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. Must be of class 'string', not 'integer'.
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

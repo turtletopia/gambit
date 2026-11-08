@@ -108,10 +108,58 @@ Whether <code>NULL</code> is also allowed or not.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">needs_string</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"pattern"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu">test_string</span><span class="op">(</span><span class="st">"test"</span>, pattern <span class="op">=</span> <span class="st">"st$"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkString.html" class="external-link">test_string</a></span><span class="op">(</span><span class="st">"test"</span>, pattern <span class="op">=</span> <span class="st">"st$"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  null_ok <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘checkmate’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. Must be of class 'string', not 'logical'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = 156L)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. Must be of class 'string', not 'integer'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = list("string"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. Must be of class 'string', not 'list'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = c("string", "second"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. Must be of length == 1, but has length 2.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = character(0))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. Must be of length == 1, but has length 0.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_string(x = "test", pattern = NA_character_)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkCharacterPattern()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'pattern' failed. May not contain missing values, first at position 1.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

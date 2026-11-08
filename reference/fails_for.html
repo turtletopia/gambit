@@ -72,14 +72,37 @@ Values that should fail assertions when passed to the tested function as <code>p
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fails_for</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"os"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu">test_os</span><span class="op">(</span><span class="st">"linux"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkOS.html" class="external-link">test_os</a></span><span class="op">(</span><span class="st">"linux"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fl">0L</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"chromium"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘checkmate’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_os(os = 0L)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `match.arg()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> 'arg' must be NULL or a character vector</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_os(os = character(0))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `match.arg()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> 'arg' must be of length &gt;= 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_os(os = "chromium")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `match.arg()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> 'arg' should be one of “windows”, “mac”, “linux”, “solaris”</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

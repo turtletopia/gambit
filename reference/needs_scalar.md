@@ -57,5 +57,44 @@ needs_scalar(
   "x",
   test_function(x = 3L)
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   test_function(x = list(1L))
+#> Condition
+#>   Error in `test_function()`:
+#>   ! Assertion on 'x' failed: Must be of type 'atomic scalar', not 'list'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   test_function(x = c(TRUE, FALSE))
+#> Condition
+#>   Error in `test_function()`:
+#>   ! Assertion on 'x' failed: Must have length 1.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   test_function(x = character(0))
+#> Condition
+#>   Error in `test_function()`:
+#>   ! Assertion on 'x' failed: Must have length 1.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   test_function(x = NA)
+#> Condition
+#>   Error in `test_function()`:
+#>   ! Assertion on 'x' failed: May not be NA.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   test_function(x = NULL)
+#> Condition
+#>   Error in `test_function()`:
+#>   ! Assertion on 'x' failed: Must be of type 'atomic scalar', not 'NULL'.
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

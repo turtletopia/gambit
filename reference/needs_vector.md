@@ -100,5 +100,13 @@ needs_vector(
   any_missing = FALSE,
   null_ok = TRUE
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_names(x = letters[1:5], subset.of = c(1L, 2L, 
+#>   3L, 4L, 5L, NA))
+#> Condition
+#>   Error in `checkNamesCmp()`:
+#>   ! Assertion on 'subset.of' failed. Must be of class 'string', not 'integer'.
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

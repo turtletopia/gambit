@@ -72,5 +72,60 @@ needs_int(
   checkmate::test_string("test", min.chars = 3),
   null_ok = TRUE
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = TRUE)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must be numeric and close to an integer
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = "156")
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must be numeric and close to an integer
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = list(156L))
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must be numeric and close to an integer
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = 156.5)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must be numeric and close to an integer
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = 156:157)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must have length 1
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = integer(0))
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' must have length 1
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", min.chars = NA_integer_)
+#> Condition
+#>   Error in `isTRUE()`:
+#>   ! Argument 'min.chars' may not be missing
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

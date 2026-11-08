@@ -126,11 +126,19 @@ Whether <code>NULL</code> is also allowed or not.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">needs_vector</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"subset.of"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu">test_names</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, subset.of <span class="op">=</span> <span class="va">letters</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkNames.html" class="external-link">test_names</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, subset.of <span class="op">=</span> <span class="va">letters</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  any_missing <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>  null_ok <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in loadNamespace(x):</span> there is no package called ‘checkmate’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ── Snapshot ────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Can't save or compare to reference when testing interactively.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   checkmate::test_names(x = letters[1:5], subset.of = c(1L, 2L, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3L, 4L, 5L, NA))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Condition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `checkNamesCmp()`:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #BBBB00;">!</span> Assertion on 'subset.of' failed. Must be of class 'string', not 'integer'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

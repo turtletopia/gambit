@@ -80,5 +80,53 @@ needs_string(
   checkmate::test_string("test", pattern = "st$"),
   null_ok = TRUE
 )
-#> Error in loadNamespace(x): there is no package called ‘checkmate’
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = TRUE)
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. Must be of class 'string', not 'logical'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = 156L)
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. Must be of class 'string', not 'integer'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = list("string"))
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. Must be of class 'string', not 'list'.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = c("string", "second"
+#>   ))
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. Must be of length == 1, but has length 2.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = character(0))
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. Must be of length == 1, but has length 0.
+#> ────────────────────────────────────────────────────────────────────────────────
+#> ── Snapshot ────────────────────────────────────────────────────────────────────
+#> ℹ Can't save or compare to reference when testing interactively.
+#> Code
+#>   checkmate::test_string(x = "test", pattern = NA_character_)
+#> Condition
+#>   Error in `checkCharacterPattern()`:
+#>   ! Assertion on 'pattern' failed. May not contain missing values, first at position 1.
+#> ────────────────────────────────────────────────────────────────────────────────
 ```

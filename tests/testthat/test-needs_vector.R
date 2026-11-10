@@ -20,20 +20,7 @@ test_that("succeeds with an imported function", {
 })
 
 # `param` ----------------------------------------------------------------------
-test_that("`param` must be a string", {
-  needs_string(
-    "param",
-    needs_vector("x", identity(x = 0L))
-  )
-})
-
-test_that("`param` must be one of tested function parameters", {
-  expect_snapshot(
-    needs_vector("y", identity(x = 0L)),
-    cran = TRUE,
-    error = TRUE
-  )
-})
+test_arg_param(needs_vector)
 
 # `strict` ---------------------------------------------------------------------
 test_that("if `strict` then tests a vector with attributes", {

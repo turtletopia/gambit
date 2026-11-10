@@ -52,51 +52,10 @@ test_that("by default, tests a scalar of mismatched type", {
 })
 
 # `param` ----------------------------------------------------------------------
-test_that("`param` must be a string", {
-  needs_string(
-    "param",
-    needs_flag("x", identity(x = 0L))
-  )
-})
-
-test_that("`param` must be one of tested function parameters", {
-  expect_snapshot(
-    needs_flag("y", identity(x = 0L)),
-    cran = TRUE,
-    error = TRUE
-  )
-})
+test_arg_param(needs_flag)
 
 # `na_ok` ----------------------------------------------------------------------
-test_that("if `na_ok` then doesn't test NA", {
-  testthat::local_mocked_bindings(
-    fails_for = function(expr, param, failures) { failures }
-  )
-
-  failures <- needs_flag(
-    "x",
-    ignored(),
-    na_ok = FALSE
-  )
-
-  expect_contains(failures, list(NA))
-
-  failures_2 <- needs_flag(
-    "x",
-    ignored(),
-    na_ok = TRUE
-  )
-
-  expect_disjoint(failures_2, list(NA))
-  expect_in(failures_2, failures)
-})
-
-test_that("`na_ok` must be a flag", {
-  needs_flag(
-    "na_ok",
-    needs_flag("x", identity(x = 0L))
-  )
-})
+test_arg_na_ok(needs_flag)
 
 # `null_ok` --------------------------------------------------------------------
 test_arg_null_ok(needs_flag)

@@ -1,4 +1,4 @@
-#' Test if parameter needs a vector
+#' Test a parameter that needs a vector
 #'
 #' @description
 #' Runs a series of expectations with incorrect parameter values expecting errors. The values are selected to cover
@@ -21,6 +21,8 @@
 #'  Maximum length of the vector. Must be more than `min_len`. If these were to be equal, set `len` instead.
 #' @param unique `logical(1)`\cr
 #'  Whether all values must be unique or not.
+#'
+#' @seealso [checkmate::assert_vector()] for \pkg{checkmate} counterpart.
 #'
 #' @examples
 #' needs_vector(

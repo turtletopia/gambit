@@ -56,3 +56,6 @@ needs_string(
   null_ok = TRUE
 )
 }
+\seealso{
+\code{\link[checkmate:assert_string]{checkmate::assert_string()}} for \pkg{checkmate} counterpart.
+}

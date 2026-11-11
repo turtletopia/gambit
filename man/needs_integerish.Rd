@@ -2,7 +2,7 @@
 % Please edit documentation in R/needs_integerish.R
 \name{needs_integerish}
 \alias{needs_integerish}
-\title{Test if parameter needs an integerish vector}
+\title{Test a parameter that needs an integerish vector}
 \usage{
 needs_integerish(
   param,
@@ -75,4 +75,7 @@ values sufficiently close to integers.
 }
 \details{
 Uses \code{\link[testthat:expect_snapshot]{testthat::expect_snapshot()}} under the hood.
+}
+\seealso{
+\code{\link[checkmate:assert_integerish]{checkmate::assert_integerish()}} for \pkg{checkmate} counterpart.
 }

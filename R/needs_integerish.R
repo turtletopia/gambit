@@ -1,4 +1,4 @@
-#' Test if parameter needs an integerish vector
+#' Test a parameter that needs an integerish vector
 #'
 #' @description
 #' Runs a series of expectations with incorrect parameter values expecting errors. The values are selected to cover
@@ -18,6 +18,8 @@
 #'  Whether elements must be sorted in ascending order.
 #' @param typed_missing `logical(1)`\cr
 #'  Whether `NA` of non-numeric types should be marked as invalid or not.
+#'
+#' @seealso [checkmate::assert_integerish()] for \pkg{checkmate} counterpart.
 #'
 #' @export
 needs_integerish <- function(

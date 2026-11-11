@@ -12,6 +12,8 @@
 #'
 #' @return Nothing, called for its side effect of running expectations.
 #'
+#' @seealso [checkmate::assert_flag()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' needs_flag(
 #'   "any.missing",

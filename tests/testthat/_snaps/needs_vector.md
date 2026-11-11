@@ -253,6 +253,71 @@
       Error in `needs_vector()`:
       ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'NULL'.
 
+# `len` must be a count or NULL
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = TRUE)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'logical'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = "156")
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'character'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = list(
+          156L))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'list'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = 156.5)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'double'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = 156:157)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = integer(0))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = -4L)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), len = NA_integer_)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'len' failed: May not be NA.
+
 # `len` can't be supplied with `min_len` or `max_len`
 
     Code
@@ -268,6 +333,152 @@
     Condition
       Error in `needs_vector()`:
       ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
+
+# `min_len` must be a count
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = TRUE)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'logical'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = "156")
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'character'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = list(
+          156L))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'list'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = 156.5)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'double'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = 156:157)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = integer(0))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = -4L)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = NA_integer_)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: May not be NA.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), min_len = NULL)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'NULL'.
+
+# `max_len` must be a count
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = TRUE)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'logical'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = "156")
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'character'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = list(
+          156L))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'list'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = 156.5)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'double'.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = 156:157)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = integer(0))
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = -4L)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = NA_integer_)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: May not be NA.
+
+---
+
+    Code
+      needs_vector(param = "x", expr = identity(x = 0L), max_len = NULL)
+    Condition
+      Error in `needs_vector()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'NULL'.
 
 # `max_len` must exceed `min_len`
 

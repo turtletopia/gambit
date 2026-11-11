@@ -6,7 +6,7 @@ Authors@R: c(person("Laura", "Bakala",
              role = c("cre", "aut", "cph"),
              comment = c(ORCID = "0000-0002-3213-2484")))
 Description: Provides test suites to specify expectations regarding allowed parameter values in form of test cases.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Depends:
     R (>= 4.1.0)
 Imports: 

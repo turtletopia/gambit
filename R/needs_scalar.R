@@ -19,6 +19,8 @@
 #'
 #' @return Nothing, called for its side effect of running expectations.
 #'
+#' @seealso [checkmate::assert_scalar()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' test_function <- function(x) {
 #'   checkmate::assert_scalar(x)

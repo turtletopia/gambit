@@ -12,6 +12,8 @@
 #' @param upper `numeric(1)`\cr
 #'  Maximum value of the parameter.
 #'
+#' @seealso [checkmate::assert_int()] for \pkg{checkmate} counterpart.
+#'
 #' @examples
 #' needs_int(
 #'   "min.chars",

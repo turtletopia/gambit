@@ -39,3 +39,6 @@ needs_flag(
   checkmate::test_integer(5L, any.missing = TRUE)
 )
 }
+\seealso{
+\code{\link[checkmate:assert_flag]{checkmate::assert_flag()}} for \pkg{checkmate} counterpart.
+}

@@ -1,4 +1,4 @@
-# Test if parameter needs an integerish vector
+# Test a parameter that needs an integerish vector
 
 Runs a series of expectations with incorrect parameter values expecting
 errors. The values are selected to cover all different manners of
@@ -113,3 +113,8 @@ Nothing, called for its side effect of running expectations.
 Uses
 [`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)
 under the hood.
+
+## See also
+
+[`checkmate::assert_integerish()`](https://mllg.github.io/checkmate/reference/checkIntegerish.html)
+for checkmate counterpart.

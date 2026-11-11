@@ -57,12 +57,186 @@
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"turtletopia/gambit"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>Suppose your R package defines a function. Perhaps you already added {checkmate} assertions, perhaps you test function inputs some other way. In any case, assume this function looks like this:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">move_rook</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">column</span>, <span class="va">distance</span>, <span class="va">direction</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"up"</span>, <span class="st">"down"</span>, <span class="st">"left"</span>, <span class="st">"right"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">direction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg</a></span><span class="op">(</span><span class="va">direction</span><span class="op">)</span></span>
+<span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkString.html" class="external-link">assert_string</a></span><span class="op">(</span><span class="va">column</span>, n.chars <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span>  <span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkInt.html" class="external-link">assert_int</a></span><span class="op">(</span><span class="va">distance</span>, lower <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">board</span><span class="op">$</span><span class="fu">update_rook</span><span class="op">(</span><span class="va">column</span>, <span class="va">distance</span>, <span class="va">direction</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>To cover it with unit tests, you’d normally * test invariants, * test function behaviour with valid arguments, * test errors raised with invalid arguments.</p>
+<p>The last part would usually be tedious - for each parameter of each function, you should test a few different values, each failing for a different reason. For example, you’d need to test <code>column</code> being given a <code>NULL</code>, a non-character value, an empty character vector, a character vector of length 2+, an empty string, an <code>NA_character_</code>, etc. This would end up involving a lot of copying and pasting, and even if you do not consider it an issue with your coding LLM, the real problem remains: those tests are supposed to define requirements for function/parameter behaviour, but reading them all is tedious and it’s easy to miss a test case somewhere.</p>
+<p>Instead, use {gambit} to specify your tests (called “needs”) just like you’d specify {checkmate} assertions. It will generate several snapshots that use <a href="https://testthat.r-lib.org/reference/expect_snapshot.html" class="external-link">`testthat::expect_snapshot()</a> under the hood:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">gambit</span><span class="fu">::</span><span class="fu"><a href="reference/needs_string.html">needs_string</a></span><span class="op">(</span><span class="st">"column"</span>, <span class="fu">move_rook</span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">3L</span>, direction <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span>, n_chars <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = TRUE, distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must be of type 'string', not 'logical'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = 156L, distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must be of type 'string', not 'integer'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = list("string"), distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must be of type 'string', not 'list'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = c("string", "second"), distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must have length 1.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = character(0), distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must have length 1.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = NA_character_, distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: May not be NA.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "", distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: All elements must have exactly 1 characters, but element 1 has 0 chararacters.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "xx", distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: All elements must have exactly 1 characters, but element 1 has 2 chararacters.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = NULL, distance = 3L, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'column' failed: Must be of type 'string', not 'NULL'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">gambit</span><span class="fu">::</span><span class="fu"><a href="reference/needs_int.html">needs_int</a></span><span class="op">(</span><span class="st">"distance"</span>, <span class="fu">move_rook</span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">3L</span>, direction <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span>, lower <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = TRUE, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'logical'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = "156", direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'character'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = list(156L), direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'list'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = 156.5, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'double'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = 156:157, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must have length 1.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = integer(0), direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must have length 1.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = NA_integer_, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: May not be NA.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = -Inf, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'double'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = 0, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Element 1 is not &gt;= 1.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ── Snapshot ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ℹ Can't save or compare to reference when testing interactively.</span></span>
+<span><span class="co">#&gt; Code</span></span>
+<span><span class="co">#&gt;   move_rook(column = "A", distance = NULL, direction = "up")</span></span>
+<span><span class="co">#&gt; Condition</span></span>
+<span><span class="co">#&gt;   Error in `move_rook()`:</span></span>
+<span><span class="co">#&gt;   ! Assertion on 'distance' failed: Must be of type 'single integerish value', not 'NULL'.</span></span>
+<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
+<p>A gambit specification requires parameter name (e.g. <code>"column"</code>) and example valid function call (e.g. <code>move_rook("A", 3L, direction = "up"</code>)), then the other parameters are analogues of the {checkmate} parameters (except for using underscores instead of dots). Additionally, {gambit} makes additional assertions to needs specifications, not allowing you to - for example - specify <code>n_chars</code> and <code>min_chars</code> simultaneously.</p>
+<p>Note that the function you provide is never supposed to execute in its entirety, so its execution time should never come into play, as the assertions should come first. In fact, note how none of the exceptions above mention <code>board</code> that <code>move_rook()</code> uses in its definition, even though it hasn’t been defined anywhere. That’s because we never get that far.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 

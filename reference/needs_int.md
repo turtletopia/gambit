@@ -64,6 +64,11 @@ Uses
 [`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)
 under the hood.
 
+## See also
+
+[`checkmate::assert_int()`](https://mllg.github.io/checkmate/reference/checkInt.html)
+for checkmate counterpart.
+
 ## Examples
 
 ``` r

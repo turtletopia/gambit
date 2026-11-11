@@ -1,4 +1,4 @@
-# Test if parameter needs a vector
+# Test a parameter that needs a vector
 
 Runs a series of expectations with incorrect parameter values expecting
 errors. The values are selected to cover all different manners of
@@ -90,6 +90,11 @@ Nothing, called for its side effect of running expectations.
 Uses
 [`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)
 under the hood.
+
+## See also
+
+[`checkmate::assert_vector()`](https://mllg.github.io/checkmate/reference/checkVector.html)
+for checkmate counterpart.
 
 ## Examples
 

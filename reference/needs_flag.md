@@ -48,6 +48,11 @@ Uses
 [`testthat::expect_snapshot()`](https://testthat.r-lib.org/reference/expect_snapshot.html)
 under the hood.
 
+## See also
+
+[`checkmate::assert_flag()`](https://mllg.github.io/checkmate/reference/checkFlag.html)
+for checkmate counterpart.
+
 ## Examples
 
 ``` r

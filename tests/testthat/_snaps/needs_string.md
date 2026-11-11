@@ -225,6 +225,71 @@
       Error in `needs_string()`:
       ! Assertion on 'na_ok' failed: Must be of type 'logical flag', not 'NULL'.
 
+# `n_chars` must be a count or NULL
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = TRUE)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'logical'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = "156")
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'character'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = list(
+          156L))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'list'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = 156.5)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'double'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = 156:157)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = integer(0))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = -4L)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), n_chars = NA_integer_)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'n_chars' failed: May not be NA.
+
 # `n_chars` can't be supplied with `min_chars` or `max_chars`
 
     Code
@@ -240,6 +305,152 @@
     Condition
       Error in `needs_string()`:
       ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
+
+# `min_chars` must be a count or NULL
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = TRUE)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'logical'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = "156")
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'character'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = list(
+          156L))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'list'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = 156.5)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'double'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = 156:157)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = integer(0))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = -4L)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = NA_integer_)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: May not be NA.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), min_chars = NULL)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'NULL'.
+
+# `max_chars` must be a count or NULL
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = TRUE)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'logical'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = "156")
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'character'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = list(
+          156L))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'list'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = 156.5)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'double'.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = 156:157)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = integer(0))
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = -4L)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = NA_integer_)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: May not be NA.
+
+---
+
+    Code
+      needs_string(param = "x", expr = identity(x = 0L), max_chars = NULL)
+    Condition
+      Error in `needs_string()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'NULL'.
 
 # `max_chars` must exceed `min_chars`
 

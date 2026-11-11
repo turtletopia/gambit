@@ -143,6 +143,71 @@
       Error in `fails_for()`:
       ! Assertion on 'param' failed: Must be element of set {'x'}, but is 'y'.
 
+# `n_chars` must be a count or NULL
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must be of type 'count' (or 'NULL'), not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), n_chars = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'n_chars' failed: May not be NA.
+
 # `n_chars` can't be supplied with `min_chars` or `max_chars`
 
     Code
@@ -158,6 +223,152 @@
     Condition
       Error in `needs_character()`:
       ! Can't supply 'n_chars' if 'min_chars' or 'max_chars' already supplied.
+
+# `min_chars` must be a count or NULL
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: May not be NA.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_chars = NULL)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_chars' failed: Must be of type 'count', not 'NULL'.
+
+# `max_chars` must be a count or NULL
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: May not be NA.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_chars = NULL)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_chars' failed: Must be of type 'single integerish value', not 'NULL'.
 
 # `max_chars` must exceed `min_chars`
 
@@ -291,6 +502,71 @@
       Error in `needs_character()`:
       ! Assertion on 'all_missing' failed: Must be of type 'logical flag', not 'NULL'.
 
+# `len` must be a count or NULL
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must be of type 'count' (or 'NULL'), not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), len = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'len' failed: May not be NA.
+
 # `len` can't be supplied with `min_len` or `max_len`
 
     Code
@@ -306,6 +582,152 @@
     Condition
       Error in `needs_character()`:
       ! Can't supply 'len' if 'min_len' or 'max_len' already supplied.
+
+# `min_len` must be a count
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be >= 0.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: May not be NA.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), min_len = NULL)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'min_len' failed: Must be of type 'count', not 'NULL'.
+
+# `max_len` must be a count
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = TRUE)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'logical'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = "156")
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'character'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = list(
+          156L))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'list'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = 156.5)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'double'.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = 156:157)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = integer(0))
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must have length 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = -4L)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Element 1 is not >= 1.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = NA_integer_)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: May not be NA.
+
+---
+
+    Code
+      needs_character(param = "x", expr = identity(x = 0L), max_len = NULL)
+    Condition
+      Error in `needs_character()`:
+      ! Assertion on 'max_len' failed: Must be of type 'single integerish value', not 'NULL'.
 
 # `max_len` must exceed `min_len`
 

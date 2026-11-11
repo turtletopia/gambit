@@ -145,7 +145,6 @@ test_arg_len <- function(needs_fn, test_fn, ...) {
   })
 
   test_that("`len` must be a count or NULL", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "len",
@@ -245,7 +244,6 @@ test_arg_max_chars <- function(needs_fn, test_fn, ...) {
   })
 
   test_that("`max_chars` must be a count or NULL", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "max_chars",
@@ -302,7 +300,6 @@ test_arg_max_len <- function(needs_fn, test_fn, ...) {
   })
 
   test_that("`max_len` must be a count", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "max_len",
@@ -359,7 +356,6 @@ test_arg_min_chars <- function(needs_fn, test_fn, ...) {
   })
 
   test_that("`min_chars` must be a count or NULL", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "min_chars",
@@ -401,7 +397,6 @@ test_arg_min_len <- function(needs_fn, test_fn, ...) {
   })
 
   test_that("`min_len` must be a count", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "min_len",
@@ -448,7 +443,6 @@ test_arg_n_chars <- function(needs_fn, test_fn, ...) {
   # TODO: Cover the case of `n_chars` == 0
 
   test_that("`n_chars` must be a count or NULL", {
-    skip("Not implemented yet")
     rlang::inject(
       needs_count(
         "n_chars",
